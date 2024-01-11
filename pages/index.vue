@@ -8,6 +8,13 @@
 
 <script lang="ts" setup>
 const { data: endorseHorses } = await useAsyncData('endorseHorses', () => queryContent('/endorse_test').find())
+import { computed } from 'vue'
+const categories = computed(() => {
+  return [
+    "All categories",
+    ...new Set(endorseHorses[0].body.map(t => t.category).sort())
+  ];
+})
 </script>
 
 <style lang="scss">
@@ -70,4 +77,5 @@ h3 {
   &.goodBabyShowing {
     transform: translateY(0%);
   }
-}</style>
+}
+</style>
